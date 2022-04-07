@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components"
-import { light } from "./themes"
+import { createGlobalStyle } from 'styled-components'
+import { light } from './themes'
 
 const GlobalStyle = createGlobalStyle`
     html { background: ${light.colors.background} }

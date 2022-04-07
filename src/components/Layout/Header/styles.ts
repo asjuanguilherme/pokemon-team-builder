@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import { light } from "../../../styles/themes"
+import styled from 'styled-components'
+import { light } from '../../../styles/themes'
 
 export const Header = styled.header`
   padding-top: 4rem;

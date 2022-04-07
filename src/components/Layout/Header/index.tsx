@@ -1,5 +1,5 @@
-import * as S from "./styles"
-import { Container } from "../styles"
+import * as S from './styles'
+import { Container } from '../styles'
 
 const Header = () => {
   return (
