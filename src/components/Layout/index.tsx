@@ -1,11 +1,11 @@
-import * as S from "./styles"
-import Header from "./Header"
+import * as S from './styles'
+import Header from './Header'
 
-type IProps = {
+type Props = {
   children: any
 }
 
-const Layout = (props: IProps) => {
+const Layout = (props: Props) => {
   return (
     <>
       <Header />
