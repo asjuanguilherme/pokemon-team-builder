@@ -1,16 +1,12 @@
 import * as S from './styles'
 import { monsterTypesColors } from '../../styles/monsterTypesColors'
+import { Pokemon } from '../../types/pokemon'
 
-type Props = {
-  id: number
-  name: string
-  types: string[]
-  image: string
-}
-
-const index = (props: Props) => {
+const index = (props: Pokemon) => {
   const renderTypes = () => {
-    return props.types.map(a => <S.TypeBar color={monsterTypesColors[a]} />)
+    return props.types.map((type, index) => (
+      <S.TypeBar color={monsterTypesColors[type]} key={index} />
+    ))
   }
 
   return (
