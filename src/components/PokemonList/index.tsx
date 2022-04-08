@@ -1,12 +1,19 @@
 import * as S from './styles'
 import PokemonOption from '../PokemonOption'
-import { pokemonListMockup } from '../../data/mockup'
+import { useContext } from 'react'
+import { PokemonsContext } from '../../contexts/PokemonsContext'
 
-type Props = {}
+const PokemonList = () => {
+  const { items } = useContext(PokemonsContext)
 
-const PokemonList = (props: Props) => {
   const renderPokemonOptions = () => {
-    return pokemonListMockup.map(pokemon => <PokemonOption {...pokemon} />)
+    const sortedItems = [...items].sort((a, b) => a.id - b.id)
+
+    console.log(sortedItems)
+
+    return sortedItems.map(pokemon => (
+      <PokemonOption {...pokemon} id={pokemon.id} key={pokemon.id} />
+    ))
   }
 
   return (

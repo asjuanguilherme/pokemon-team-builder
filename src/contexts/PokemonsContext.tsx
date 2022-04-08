@@ -13,24 +13,22 @@ type PokemonsContextType = {
   setNextPageUrl: Function
 }
 
-const defaultValue = {
-  items: [] as Pokemon[],
-  nextPage: '/pokemon',
-  loading: true,
-}
-
 export const PokemonsContext = createContext<PokemonsContextType>(
   {} as PokemonsContextType
 )
 
 const PokemonsProvider = ({ children }: PokemonsContextProps) => {
+  const defaultValue = {
+    items: [] as Pokemon[],
+    nextPage: '/pokemon',
+    loading: true,
+  }
+
   const [items, setItems] = useState(defaultValue.items)
   const [nextPageUrl, setNextPageUrl] = useState(defaultValue.nextPage)
   const [loading, setLoading] = useState(defaultValue.loading)
 
   useEffect(() => {
-    const pokeList = [] as Pokemon[]
-
     api
       .get('/pokemon')
       .then(response => response.data)
@@ -45,19 +43,20 @@ const PokemonsProvider = ({ children }: PokemonsContextProps) => {
             .get(pokemon.url)
             .then(response => response.data)
             .then((pokemon: any) =>
-              pokeList.push({
-                id: pokemon.id,
-                name: pokemon.name,
-                image: pokemon.sprites.front_default,
-                types: pokemon.types.map(
-                  (typeObject: any) => typeObject.type.name
-                ),
-              })
+              setItems(state => [
+                ...state,
+                {
+                  id: pokemon.id,
+                  name: pokemon.name,
+                  image: pokemon.sprites.front_default,
+                  types: pokemon.types.map(
+                    (typeObject: any) => typeObject.type.name
+                  ),
+                },
+              ])
             )
         )
       })
-
-      .then(() => setItems(pokeList))
       .finally(() => setLoading(false))
   }, [])
 

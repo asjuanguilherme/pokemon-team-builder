@@ -11,7 +11,7 @@ const TeamBuilder = (props: Props) => {
   const renderTeamSlots = () => {
     selectedPokemons.forEach((pokemon, index) => (teamSlots[index] = pokemon))
 
-    return teamSlots.map(slot => <TeamOption id={slot} />)
+    return teamSlots.map((slot, index) => <TeamOption id={slot} key={index} />)
   }
 
   return (
