@@ -1,14 +1,8 @@
 import { useState, useEffect, createContext, ReactNode } from 'react'
 import { api } from '../services/api'
+import { Pokemon } from '../types/pokemon'
 
 type PokemonsContextProps = { children: ReactNode }
-
-type Pokemon = {
-  id: number | null
-  name: string | null
-  image: string | null
-  types: string[]
-}
 
 type PokemonsContextType = {
   items: Pokemon[]
