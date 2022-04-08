@@ -1,17 +1,22 @@
+import { useContext } from 'react'
+import { PokemonsContext } from '../../contexts/PokemonsContext'
 import * as S from './styles'
 import TeamOption from '../TeamOption'
 
 type Props = {}
 
-const selectedPokemons = [1, 2, 3]
-
 const TeamBuilder = (props: Props) => {
-  const teamSlots: (number | null)[] = [null, null, null, null, null, null]
+  const { charsSelected, setCharsSelected, numberOfSlots } =
+    useContext(PokemonsContext)
 
   const renderTeamSlots = () => {
-    selectedPokemons.forEach((pokemon, index) => (teamSlots[index] = pokemon))
+    const teamSlots = []
 
-    return teamSlots.map((slot, index) => <TeamOption id={slot} key={index} />)
+    for (let i = 0; i < numberOfSlots; i++) {
+      teamSlots.push(<TeamOption id={charsSelected[i]} key={i} />)
+    }
+
+    return teamSlots
   }
 
   return (

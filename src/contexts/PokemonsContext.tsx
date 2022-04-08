@@ -11,6 +11,9 @@ type PokemonsContextType = {
   setLoading: Function
   nextPageUrl: string
   setNextPageUrl: Function
+  charsSelected: (number | null)[]
+  setCharsSelected: Function
+  numberOfSlots: number
 }
 
 export const PokemonsContext = createContext<PokemonsContextType>(
@@ -22,11 +25,15 @@ const PokemonsProvider = ({ children }: PokemonsContextProps) => {
     items: [] as Pokemon[],
     nextPage: '/pokemon',
     loading: true,
+    charsSelected: [5],
   }
 
   const [items, setItems] = useState(defaultValue.items)
   const [nextPageUrl, setNextPageUrl] = useState(defaultValue.nextPage)
   const [loading, setLoading] = useState(defaultValue.loading)
+
+  const numberOfSlots = 6
+  const [charsSelected, setCharsSelected] = useState(defaultValue.charsSelected)
 
   useEffect(() => {
     api
@@ -69,6 +76,9 @@ const PokemonsProvider = ({ children }: PokemonsContextProps) => {
         setNextPageUrl,
         loading,
         setLoading,
+        charsSelected,
+        setCharsSelected,
+        numberOfSlots,
       }}
     >
       {children}
