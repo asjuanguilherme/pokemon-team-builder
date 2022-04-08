@@ -30,7 +30,8 @@ export const Id = styled.span<{ monsterId: number }>`
 `
 export const Img = styled.img`
   width: 100%;
-  max-width: 3rem;
+  height: 3rem;
+  object-fit: contain;
 `
 export const Name = styled.h3`
   margin: 0;
