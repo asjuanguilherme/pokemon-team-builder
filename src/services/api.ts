@@ -1,6 +1,4 @@
 import axios from 'axios'
-import { pokemonListMockup } from '../data/mockup'
-import { Pokemon } from '../types/pokemon'
 
 export const api = axios.create({ baseURL: 'https://pokeapi.co/api/v2/' })
 
