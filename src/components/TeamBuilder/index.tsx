@@ -1,14 +1,15 @@
-import { useContext, useState } from 'react'
+import { SyntheticEvent, useContext, useState } from 'react'
 import { PokemonsContext } from '../../contexts/PokemonsContext'
 import * as S from './styles'
 import TeamOption from '../TeamOption'
 import Button from '../IconButton'
-import { MdCheck, MdDelete } from 'react-icons/md'
+import { MdCheck, MdDelete, MdEdit } from 'react-icons/md'
 
 type SlotIndex = number | null
 
 const TeamBuilder = () => {
-  const { charsSlots, setCharsSlots } = useContext(PokemonsContext)
+  const { charsSlots, setCharsSlots, teamName, setTeamName } =
+    useContext(PokemonsContext)
   const [selectedSlot, setSelectedSlot] = useState<SlotIndex>(null)
 
   const selectSlot = (index: number) => {
@@ -35,16 +36,34 @@ const TeamBuilder = () => {
       `Novo time criado com sucesso: \n
       {
         id: 1578,
-        name: NOME_DO_TIME,
+        name: ${teamName},
         chars: ${charsSlots}
       }
       `
     )
   }
 
+  const handleChange = (e: any) => {
+    const value = e.target.value
+    if (value.length < 24) setTeamName(value)
+  }
+
+  const handleBlur = () => {
+    if (teamName === '') setTeamName('MyTeam')
+  }
+
   return (
     <S.Container>
-      <S.Title>My Team</S.Title>
+      <S.TeamNameContainer>
+        <S.TeamName
+          value={teamName}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          size={teamName.length === 0 ? 1 : teamName.length}
+        />
+        <S.EditIcon />
+      </S.TeamNameContainer>
+
       <S.List>
         {charsSlots.map((id, index) => (
           <TeamOption

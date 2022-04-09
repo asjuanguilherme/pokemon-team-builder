@@ -14,6 +14,8 @@ type PokemonsContextType = {
   setItems: Function
   charsSlots: (number | null)[]
   setCharsSlots: Function
+  teamName: string
+  setTeamName: Function
 }
 
 export const PokemonsContext = createContext<PokemonsContextType>(
@@ -26,15 +28,23 @@ const PokemonsProvider = ({ children }: PokemonsContextProps) => {
     nextPage: 'pokemon',
     loading: true,
     charsSlots: [null, null, null, null, null, null] as (null | number)[],
+    teamName: 'My Team',
   }
 
   const [items, setItems] = useState(defaultValue.items)
   const [nextPageUrl, setNextPageUrl] = useState(defaultValue.nextPage)
   const [loading, setLoading] = useState(defaultValue.loading)
+
+  //TeamBuildingStates
   const [charsSlots, setCharsSlots] = useState(defaultValue.charsSlots)
+  const [teamName, setTeamName] = useState(defaultValue.teamName)
 
   useEffect(() => {
-    fetchPokemons().then(setItems)
+    fetchPokemons()
+      .then(pokemons =>
+        pokemons.map((a: any) => ({ name: a.name, url: a.url }))
+      )
+      .then(setItems)
   }, [])
 
   return (
@@ -44,6 +54,8 @@ const PokemonsProvider = ({ children }: PokemonsContextProps) => {
         setItems,
         charsSlots,
         setCharsSlots,
+        teamName,
+        setTeamName,
       }}
     >
       {children}
