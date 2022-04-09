@@ -12,6 +12,7 @@ type Props = {
 const PokemonOption = (props: Props) => {
   const { charsSlots, setCharsSlots } = useContext(PokemonsContext)
   const [pokemonData, setPokemonData] = useState({} as Pokemon)
+  const selected = charsSlots.includes(pokemonData.id)
 
   useEffect(() => {
     if (props.charUrl !== null)
@@ -54,6 +55,7 @@ const PokemonOption = (props: Props) => {
 
   return (
     <S.Container onClick={handleClick}>
+      {selected && <S.SelectedIcon />}
       <S.Id monsterId={pokemonData.id}>#{pokemonData.id}</S.Id>
       <S.Img src={pokemonData.image} />
       <S.Name>{pokemonData.name}</S.Name>

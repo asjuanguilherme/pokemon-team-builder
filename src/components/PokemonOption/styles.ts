@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { light } from '../../styles/themes'
+import { MdCheck } from 'react-icons/md'
 
 export const Container = styled.div`
   padding-top: 0.8rem;
@@ -8,6 +9,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   max-width: 65px;
+  position: relative;
 `
 export const Id = styled.span<{ monsterId: number }>`
   height: 1.3rem;
@@ -52,4 +54,18 @@ export const TypeBar = styled.span<{ color: string }>`
   width: 49%;
   height: 100%;
   background-color: ${props => props.color};
+`
+
+export const SelectedIcon = styled(MdCheck)`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  height: 2.25rem;
+  width: 2.25rem;
+  fill: white;
+  background-color: ${light.colors.success};
+  border-radius: 100%;
+  opacity: 0.8;
 `
