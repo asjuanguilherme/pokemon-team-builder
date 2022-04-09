@@ -6,23 +6,16 @@ import TeamOption from '../TeamOption'
 type Props = {}
 
 const TeamBuilder = (props: Props) => {
-  const { charsSelected, setCharsSelected, numberOfSlots } =
-    useContext(PokemonsContext)
-
-  const renderTeamSlots = () => {
-    const teamSlots = []
-
-    for (let i = 0; i < numberOfSlots; i++) {
-      teamSlots.push(<TeamOption id={charsSelected[i]} key={i} />)
-    }
-
-    return teamSlots
-  }
+  const { charsSlots } = useContext(PokemonsContext)
 
   return (
     <S.Container>
       <S.Title>My Team</S.Title>
-      <S.List>{renderTeamSlots()}</S.List>
+      <S.List>
+        {[...charsSlots].map((id, index) => (
+          <TeamOption id={id} key={index} />
+        ))}
+      </S.List>
     </S.Container>
   )
 }

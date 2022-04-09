@@ -6,21 +6,15 @@ import { PokemonsContext } from '../../contexts/PokemonsContext'
 const PokemonList = () => {
   const { items } = useContext(PokemonsContext)
 
-  const renderPokemonOptions = () => {
-    const sortedItems = [...items].sort((a, b) => a.id - b.id)
-
-    console.log(sortedItems)
-
-    return sortedItems.map(pokemon => (
-      <PokemonOption {...pokemon} id={pokemon.id} key={pokemon.id} />
-    ))
-  }
-
   return (
     <S.Container>
       <S.Title>Choose 6 Pokémons:</S.Title>
       <S.ScrollContainer>
-        <S.List>{renderPokemonOptions()}</S.List>
+        <S.List>
+          {items?.map((pokemon, index) => (
+            <PokemonOption charUrl={pokemon.url} key={index} />
+          ))}
+        </S.List>
       </S.ScrollContainer>
     </S.Container>
   )

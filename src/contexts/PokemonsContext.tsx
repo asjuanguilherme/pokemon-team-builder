@@ -1,19 +1,19 @@
 import { useState, useEffect, createContext, ReactNode } from 'react'
-import { api } from '../services/api'
+import { fetchPokemons } from '../services/api'
 import { Pokemon } from '../types/pokemon'
 
 type PokemonsContextProps = { children: ReactNode }
 
+type PokemonFetchObject = {
+  url: string
+  name: string
+}
+
 type PokemonsContextType = {
-  items: Pokemon[]
+  items: PokemonFetchObject[]
   setItems: Function
-  loading: boolean
-  setLoading: Function
-  nextPageUrl: string
-  setNextPageUrl: Function
-  charsSelected: (number | null)[]
-  setCharsSelected: Function
-  numberOfSlots: number
+  charsSlots: (number | null)[]
+  setCharsSlots: Function
 }
 
 export const PokemonsContext = createContext<PokemonsContextType>(
@@ -22,49 +22,19 @@ export const PokemonsContext = createContext<PokemonsContextType>(
 
 const PokemonsProvider = ({ children }: PokemonsContextProps) => {
   const defaultValue = {
-    items: [] as Pokemon[],
-    nextPage: '/pokemon',
+    items: [] as PokemonFetchObject[],
+    nextPage: 'pokemon',
     loading: true,
-    charsSelected: [5],
+    charsSlots: [null, null, null, null, null, null] as (null | number)[],
   }
 
   const [items, setItems] = useState(defaultValue.items)
   const [nextPageUrl, setNextPageUrl] = useState(defaultValue.nextPage)
   const [loading, setLoading] = useState(defaultValue.loading)
-
-  const numberOfSlots = 6
-  const [charsSelected, setCharsSelected] = useState(defaultValue.charsSelected)
+  const [charsSlots, setCharsSlots] = useState(defaultValue.charsSlots)
 
   useEffect(() => {
-    api
-      .get('/pokemon')
-      .then(response => response.data)
-      .then(response => {
-        setNextPageUrl(response.next)
-
-        return response.results
-      })
-      .then(pokemonList => {
-        pokemonList.forEach((pokemon: any) =>
-          api
-            .get(pokemon.url)
-            .then(response => response.data)
-            .then((pokemon: any) =>
-              setItems(state => [
-                ...state,
-                {
-                  id: pokemon.id,
-                  name: pokemon.name,
-                  image: pokemon.sprites.other.dream_world.front_default,
-                  types: pokemon.types.map(
-                    (typeObject: any) => typeObject.type.name
-                  ),
-                },
-              ])
-            )
-        )
-      })
-      .finally(() => setLoading(false))
+    fetchPokemons().then(setItems)
   }, [])
 
   return (
@@ -72,13 +42,8 @@ const PokemonsProvider = ({ children }: PokemonsContextProps) => {
       value={{
         items,
         setItems,
-        nextPageUrl,
-        setNextPageUrl,
-        loading,
-        setLoading,
-        charsSelected,
-        setCharsSelected,
-        numberOfSlots,
+        charsSlots,
+        setCharsSlots,
       }}
     >
       {children}
