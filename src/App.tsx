@@ -1,18 +1,20 @@
 import GlobalStyle from './styles/globalStyle'
-import Layout from './components/Layout'
-import PokemonList from './components/PokemonList'
-import TeamBuilder from './components/TeamBuilder'
 import PokemonsProvider from './contexts/PokemonsContext'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import Teams from './pages/Teams'
+import Home from './pages/Home'
 
 const App = () => {
   return (
     <>
       <GlobalStyle />
       <PokemonsProvider>
-        <Layout>
-          <TeamBuilder />
-          <PokemonList />
-        </Layout>
+        <Router>
+          <Routes>
+            <Route path="/teams" element={<Teams />} />
+            <Route path="/*" element={<Home />} />
+          </Routes>
+        </Router>
       </PokemonsProvider>
     </>
   )
