@@ -1,16 +1,20 @@
 import { useState, useEffect, createContext, ReactNode } from 'react'
-import { api } from '../services/api'
-import { Pokemon } from '../types/pokemon'
+import { fetchPokemons } from '../services/pokeApi'
 
 type PokemonsContextProps = { children: ReactNode }
 
+type PokemonFetchObject = {
+  url: string
+  name: string
+}
+
 type PokemonsContextType = {
-  items: Pokemon[]
+  items: PokemonFetchObject[]
   setItems: Function
-  loading: boolean
-  setLoading: Function
-  nextPageUrl: string
-  setNextPageUrl: Function
+  charsSlots: (number | null)[]
+  setCharsSlots: Function
+  teamName: string
+  setTeamName: Function
 }
 
 export const PokemonsContext = createContext<PokemonsContextType>(
@@ -19,45 +23,27 @@ export const PokemonsContext = createContext<PokemonsContextType>(
 
 const PokemonsProvider = ({ children }: PokemonsContextProps) => {
   const defaultValue = {
-    items: [] as Pokemon[],
-    nextPage: '/pokemon',
+    items: [] as PokemonFetchObject[],
+    nextPage: 'pokemon',
     loading: true,
+    charsSlots: [null, null, null, null, null, null] as (null | number)[],
+    teamName: 'My Team',
   }
 
   const [items, setItems] = useState(defaultValue.items)
   const [nextPageUrl, setNextPageUrl] = useState(defaultValue.nextPage)
   const [loading, setLoading] = useState(defaultValue.loading)
 
-  useEffect(() => {
-    api
-      .get('/pokemon')
-      .then(response => response.data)
-      .then(response => {
-        setNextPageUrl(response.next)
+  //TeamBuildingStates
+  const [charsSlots, setCharsSlots] = useState(defaultValue.charsSlots)
+  const [teamName, setTeamName] = useState(defaultValue.teamName)
 
-        return response.results
-      })
-      .then(pokemonList => {
-        pokemonList.forEach((pokemon: any) =>
-          api
-            .get(pokemon.url)
-            .then(response => response.data)
-            .then((pokemon: any) =>
-              setItems(state => [
-                ...state,
-                {
-                  id: pokemon.id,
-                  name: pokemon.name,
-                  image: pokemon.sprites.front_default,
-                  types: pokemon.types.map(
-                    (typeObject: any) => typeObject.type.name
-                  ),
-                },
-              ])
-            )
-        )
-      })
-      .finally(() => setLoading(false))
+  useEffect(() => {
+    fetchPokemons()
+      .then(pokemons =>
+        pokemons.map((a: any) => ({ name: a.name, url: a.url }))
+      )
+      .then(setItems)
   }, [])
 
   return (
@@ -65,10 +51,10 @@ const PokemonsProvider = ({ children }: PokemonsContextProps) => {
       value={{
         items,
         setItems,
-        nextPageUrl,
-        setNextPageUrl,
-        loading,
-        setLoading,
+        charsSlots,
+        setCharsSlots,
+        teamName,
+        setTeamName,
       }}
     >
       {children}

@@ -1,4 +1,10 @@
-export const light = {
+type ThemeObject = {
+  colors: {
+    [label: string]: string
+  }
+}
+
+export const light: ThemeObject = {
   colors: {
     primary: '#90ADC6',
     text: '#333652',

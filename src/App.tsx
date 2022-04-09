@@ -6,13 +6,15 @@ import PokemonsProvider from './contexts/PokemonsContext'
 
 const App = () => {
   return (
-    <PokemonsProvider>
+    <>
       <GlobalStyle />
-      <Layout>
-        <TeamBuilder />
-        <PokemonList />
-      </Layout>
-    </PokemonsProvider>
+      <PokemonsProvider>
+        <Layout>
+          <TeamBuilder />
+          <PokemonList />
+        </Layout>
+      </PokemonsProvider>
+    </>
   )
 }
 
