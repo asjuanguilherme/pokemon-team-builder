@@ -1,6 +1,5 @@
 import { useState, useEffect, createContext, ReactNode } from 'react'
-import { fetchPokemons } from '../services/api'
-import { Pokemon } from '../types/pokemon'
+import { fetchPokemons } from '../services/pokeApi'
 
 type PokemonsContextProps = { children: ReactNode }
 

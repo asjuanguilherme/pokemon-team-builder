@@ -1,6 +1,6 @@
 import * as S from './styles'
 import { useContext, useEffect, useState } from 'react'
-import { api } from '../../services/api'
+import { pokeApi } from '../../services/pokeApi'
 import { monsterTypesColors } from '../../styles/monsterTypesColors'
 import Background from './Background'
 import { Pokemon } from '../../types/pokemon'
@@ -19,7 +19,7 @@ const TeamOption = (props: Props) => {
 
   useEffect(() => {
     if (props.id !== null)
-      api
+      pokeApi
         .get(`/pokemon/${props.id}`)
         .then(response => response.data)
         .then((pokemon: any) =>

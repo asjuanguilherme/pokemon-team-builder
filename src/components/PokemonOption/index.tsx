@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react'
 import { monsterTypesColors } from '../../styles/monsterTypesColors'
 import { PokemonsContext } from '../../contexts/PokemonsContext'
 import { Pokemon } from '../../types/pokemon'
-import { api } from '../../services/api'
+import { pokeApi } from '../../services/pokeApi'
 
 type Props = {
   charUrl: string
@@ -16,7 +16,7 @@ const PokemonOption = (props: Props) => {
 
   useEffect(() => {
     if (props.charUrl !== null)
-      api
+      pokeApi
         .get(props.charUrl)
         .then(response => response.data)
         .then((pokemon: any) =>

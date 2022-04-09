@@ -1,9 +1,11 @@
-import { SyntheticEvent, useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { PokemonsContext } from '../../contexts/PokemonsContext'
 import * as S from './styles'
 import TeamOption from '../TeamOption'
 import Button from '../IconButton'
-import { MdCheck, MdDelete, MdEdit } from 'react-icons/md'
+import { MdCheck, MdDelete } from 'react-icons/md'
+import { PokemonTeamData } from '../../types/pokemonTeam'
+import { sendNewTeam } from '../../services/teamsApi'
 
 type SlotIndex = number | null
 
@@ -31,16 +33,22 @@ const TeamBuilder = () => {
   }
 
   const createTeam = () => {
-    setAllSlotsNull()
-    console.log(
-      `Novo time criado com sucesso: \n
-      {
-        id: 1578,
-        name: ${teamName},
-        chars: ${charsSlots}
-      }
-      `
-    )
+    if (charsSlots.includes(null)) return false
+    const pokemonTeamData = new FormData()
+    pokemonTeamData.append('name', teamName)
+    pokemonTeamData.append('characters', JSON.stringify(charsSlots))
+
+    const newTeam: PokemonTeamData = {
+      name: teamName,
+      characters: JSON.stringify(charsSlots),
+    }
+
+    sendNewTeam(newTeam)
+      .then(() => {
+        setAllSlotsNull()
+        setTeamName('My Team')
+      })
+      .catch(err => console.log(err))
   }
 
   const handleChange = (e: any) => {
