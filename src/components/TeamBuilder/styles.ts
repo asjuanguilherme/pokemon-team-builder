@@ -21,3 +21,12 @@ export const List = styled.ul`
     right: -1.5rem;
   }
 `
+export const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+
+  button {
+    margin-left: 0.75rem;
+  }
+`

@@ -8,6 +8,9 @@ import { PokemonsContext } from '../../contexts/PokemonsContext'
 
 type Props = {
   id: number | null
+  onClick: () => void
+  selectedIndex: null | number
+  index: number
 }
 
 const TeamOption = (props: Props) => {
@@ -34,7 +37,11 @@ const TeamOption = (props: Props) => {
 
   return (
     <div>
-      <S.Container>
+      <S.Container
+        onClick={props.onClick}
+        selectedIndex={props.selectedIndex}
+        index={props.index}
+      >
         {pokemonData?.image && <S.CharacterImg src={pokemonData?.image} />}
         <Background
           color={
