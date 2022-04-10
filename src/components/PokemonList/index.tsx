@@ -13,10 +13,11 @@ const PokemonList = () => {
       <S.ScrollContainer>
         {loading && <Loading message="Discovering Pokémons..." size="3rem" />}
         <S.List>
-          {items?.map((pokemon, index) => (
-            <PokemonOption charUrl={pokemon.url} key={index} />
+          {items?.map(pokemon => (
+            <PokemonOption charUrl={pokemon.url} key={pokemon.name} />
           ))}
         </S.List>
+        <S.Sentinel id="pokemon-list-sentinel" />
       </S.ScrollContainer>
     </S.Container>
   )
