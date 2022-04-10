@@ -16,10 +16,6 @@ const Home = () => {
       .finally(() => setLoading(false))
   }, [])
 
-  useEffect(() => {
-    console.log(teams)
-  }, [teams])
-
   return (
     <Layout linkTo="/" title="Create New Team">
       {loading && (
