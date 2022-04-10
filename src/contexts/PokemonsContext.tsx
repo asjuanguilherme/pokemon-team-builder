@@ -15,6 +15,7 @@ type PokemonsContextType = {
   setCharsSlots: Function
   teamName: string
   setTeamName: Function
+  loading: boolean
 }
 
 export const PokemonsContext = createContext<PokemonsContextType>(
@@ -44,6 +45,7 @@ const PokemonsProvider = ({ children }: PokemonsContextProps) => {
         pokemons.map((a: any) => ({ name: a.name, url: a.url }))
       )
       .then(setItems)
+      .finally(() => setLoading(false))
   }, [])
 
   return (
@@ -55,6 +57,7 @@ const PokemonsProvider = ({ children }: PokemonsContextProps) => {
         setCharsSlots,
         teamName,
         setTeamName,
+        loading,
       }}
     >
       {children}

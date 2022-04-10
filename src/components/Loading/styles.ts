@@ -13,6 +13,16 @@ const LoadingAnimation = keyframes`
 `
 
 export const Container = styled.div<{ size: string }>`
-  animation: ${LoadingAnimation} ease-in-out 1s infinite;
-  ${props => `width: ${props.size}; height: ${props.size}`}
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  svg {
+    animation: ${LoadingAnimation} ease-in-out 1s infinite;
+    ${props => `width: ${props.size}; height: ${props.size}`}
+  }
+`
+
+export const Message = styled.span`
+  margin-bottom: 1rem;
 `

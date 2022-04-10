@@ -6,7 +6,6 @@ import TeamBuilder from '../components/TeamBuilder'
 const Home = () => {
   return (
     <Layout linkTo="/teams" title="Teams">
-      <Loading size="3rem" />
       <TeamBuilder />
       <PokemonList />
     </Layout>
