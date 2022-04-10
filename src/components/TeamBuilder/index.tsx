@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import { PokemonsContext } from '../../contexts/PokemonsContext'
 import * as S from './styles'
-import TeamOption from '../TeamOption'
+import TeamSlot from '../TeamSlot'
 import Button from '../IconButton'
 import { MdCheck, MdDelete } from 'react-icons/md'
 import { PokemonTeamData } from '../../types/pokemonTeam'
@@ -72,9 +72,9 @@ const TeamBuilder = () => {
         <S.EditIcon />
       </S.TeamNameContainer>
 
-      <S.List>
+      <S.SlotsContainer>
         {charsSlots.map((id, index) => (
-          <TeamOption
+          <TeamSlot
             id={id}
             key={index}
             onClick={() => selectSlot(index)}
@@ -82,7 +82,7 @@ const TeamBuilder = () => {
             index={index}
           />
         ))}
-      </S.List>
+      </S.SlotsContainer>
       <S.ButtonsContainer>
         <Button
           onClick={() => removeFocusedCharFromSlot()}

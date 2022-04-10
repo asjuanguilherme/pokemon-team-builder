@@ -8,12 +8,12 @@ import { PokemonsContext } from '../../contexts/PokemonsContext'
 
 type Props = {
   id: number | null
-  onClick: () => void
+  onClick?: () => void
   selectedIndex: null | number
   index: number
 }
 
-const TeamOption = (props: Props) => {
+const TeamSlot = (props: Props) => {
   const { charsSlots } = useContext(PokemonsContext)
   const [pokemonData, setPokemonData] = useState<Pokemon>()
 
@@ -55,4 +55,4 @@ const TeamOption = (props: Props) => {
   )
 }
 
-export default TeamOption
+export default TeamSlot
