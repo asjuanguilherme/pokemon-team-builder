@@ -1,11 +1,22 @@
 import * as S from './styles'
 import PokemonOption from '../PokemonOption'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { PokemonsContext } from '../../contexts/PokemonsContext'
 import Loading from '../Loading'
 
 const PokemonList = () => {
-  const { items, loading } = useContext(PokemonsContext)
+  const { items, loading, setCurrentPage } = useContext(PokemonsContext)
+
+  useEffect(() => {
+    const intersectionObserver = new IntersectionObserver((entries: any) => {
+      if (entries.some((entry: any) => entry.isIntersecting))
+        setCurrentPage((prevPage: number) => prevPage + 1)
+    })
+    intersectionObserver.observe(
+      document.getElementById('pokemon-list-sentinel') as Element
+    )
+    return () => intersectionObserver.disconnect()
+  }, [])
 
   return (
     <S.Container>

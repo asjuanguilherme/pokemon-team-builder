@@ -50,18 +50,6 @@ const PokemonsProvider = ({ children }: PokemonsContextProps) => {
       .finally(() => setLoading(false))
   }, [currentPage])
 
-  useEffect(() => {
-    const intersectionObserver = new IntersectionObserver((entries: any) => {
-      if (entries.some((entry: any) => entry.isIntersecting))
-        setCurrentPage((prevPage: number) => prevPage + 1)
-    })
-
-    intersectionObserver.observe(
-      document.getElementById('pokemon-list-sentinel') as Element
-    )
-    return () => intersectionObserver.disconnect()
-  }, [])
-
   return (
     <PokemonsContext.Provider
       value={{
