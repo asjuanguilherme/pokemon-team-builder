@@ -42,6 +42,7 @@ const PokemonsProvider = ({ children }: PokemonsContextProps) => {
   const [teamName, setTeamName] = useState(defaultValue.teamName)
 
   useEffect(() => {
+    setLoading(true)
     fetchPokemons(currentPage)
       .then(pokemons =>
         pokemons.map((a: any) => ({ name: a.name, url: a.url }))
@@ -49,18 +50,6 @@ const PokemonsProvider = ({ children }: PokemonsContextProps) => {
       .then(newItems => setItems(prevItems => [...prevItems, ...newItems]))
       .finally(() => setLoading(false))
   }, [currentPage])
-
-  useEffect(() => {
-    const intersectionObserver = new IntersectionObserver((entries: any) => {
-      if (entries.some((entry: any) => entry.isIntersecting))
-        setCurrentPage((prevPage: number) => prevPage + 1)
-    })
-
-    intersectionObserver.observe(
-      document.getElementById('pokemon-list-sentinel') as Element
-    )
-    return () => intersectionObserver.disconnect()
-  }, [])
 
   return (
     <PokemonsContext.Provider
