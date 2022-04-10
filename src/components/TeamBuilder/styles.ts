@@ -2,7 +2,19 @@ import styled from 'styled-components'
 import { MdEdit } from 'react-icons/md'
 
 export const Container = styled.div`
-  padding: 1rem 0;
+  padding: 1.5rem 0;
+`
+
+export const SlotsContainer = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem 0;
+  list-style: none;
+
+  & > div:nth-child(n + 4) {
+    position: relative;
+    right: -1.5rem;
+  }
 `
 
 export const TeamName = styled.input`
@@ -18,17 +30,6 @@ export const TeamNameContainer = styled.div`
 
 export const EditIcon = styled(MdEdit)``
 
-export const List = styled.ul`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem 0;
-  list-style: none;
-
-  & > div:nth-child(n + 4) {
-    position: relative;
-    right: -1.5rem;
-  }
-`
 export const ButtonsContainer = styled.div`
   display: flex;
   justify-content: flex-end;
