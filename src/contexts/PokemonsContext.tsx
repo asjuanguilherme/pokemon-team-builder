@@ -42,6 +42,7 @@ const PokemonsProvider = ({ children }: PokemonsContextProps) => {
   const [teamName, setTeamName] = useState(defaultValue.teamName)
 
   useEffect(() => {
+    setLoading(true)
     fetchPokemons(currentPage)
       .then(pokemons =>
         pokemons.map((a: any) => ({ name: a.name, url: a.url }))

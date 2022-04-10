@@ -22,12 +22,18 @@ const PokemonList = () => {
     <S.Container>
       <S.Title>Choose 6 Pokémons:</S.Title>
       <S.ScrollContainer>
-        {loading && <Loading message="Discovering Pokémons..." size="3rem" />}
         <S.List>
           {items?.map(pokemon => (
             <PokemonOption charUrl={pokemon.url} key={pokemon.name} />
           ))}
         </S.List>
+        {loading && (
+          <Loading
+            message="Discovering Pokémons..."
+            size="1.5rem"
+            style={{ paddingTop: '1.5rem', paddingBottom: '2.5rem' }}
+          />
+        )}
         <S.Sentinel id="pokemon-list-sentinel" />
       </S.ScrollContainer>
     </S.Container>
