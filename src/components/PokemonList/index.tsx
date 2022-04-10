@@ -17,6 +17,7 @@ const PokemonList = () => {
             <PokemonOption charUrl={pokemon.url} key={index} />
           ))}
         </S.List>
+        <S.Sentinel id="pokemon-list-sentinel" />
       </S.ScrollContainer>
     </S.Container>
   )

@@ -16,6 +16,8 @@ type PokemonsContextType = {
   teamName: string
   setTeamName: Function
   loading: boolean
+  currentPage: number
+  setCurrentPage: Function
 }
 
 export const PokemonsContext = createContext<PokemonsContextType>(
@@ -25,14 +27,14 @@ export const PokemonsContext = createContext<PokemonsContextType>(
 const PokemonsProvider = ({ children }: PokemonsContextProps) => {
   const defaultValue = {
     items: [] as PokemonFetchObject[],
-    nextPage: 'pokemon',
+    currentPage: 1,
     loading: true,
     charsSlots: [null, null, null, null, null, null] as (null | number)[],
     teamName: 'My Team',
   }
 
   const [items, setItems] = useState(defaultValue.items)
-  const [nextPageUrl, setNextPageUrl] = useState(defaultValue.nextPage)
+  const [currentPage, setCurrentPage] = useState(defaultValue.currentPage)
   const [loading, setLoading] = useState(defaultValue.loading)
 
   //TeamBuildingStates
@@ -40,12 +42,24 @@ const PokemonsProvider = ({ children }: PokemonsContextProps) => {
   const [teamName, setTeamName] = useState(defaultValue.teamName)
 
   useEffect(() => {
-    fetchPokemons()
+    fetchPokemons(currentPage)
       .then(pokemons =>
         pokemons.map((a: any) => ({ name: a.name, url: a.url }))
       )
-      .then(setItems)
+      .then(newItems => setItems(prevItems => [...prevItems, ...newItems]))
       .finally(() => setLoading(false))
+  }, [currentPage])
+
+  useEffect(() => {
+    const intersectionObserver = new IntersectionObserver((entries: any) => {
+      if (entries.some((entry: any) => entry.isIntersecting))
+        setCurrentPage((prevPage: number) => prevPage + 1)
+    })
+
+    intersectionObserver.observe(
+      document.getElementById('pokemon-list-sentinel') as Element
+    )
+    return () => intersectionObserver.disconnect()
   }, [])
 
   return (
@@ -58,6 +72,8 @@ const PokemonsProvider = ({ children }: PokemonsContextProps) => {
         teamName,
         setTeamName,
         loading,
+        currentPage,
+        setCurrentPage,
       }}
     >
       {children}
