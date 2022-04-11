@@ -4,8 +4,14 @@ import Loading from '../components/Loading'
 import Team from '../components/Team'
 import { fetchTeams } from '../services/teamsApi'
 
+type PokemonTeam = {
+  id: number
+  name: string
+  characters: number[]
+}
+
 const Home = () => {
-  const [teams, setTeams] = useState([] as Object[])
+  const [teams, setTeams] = useState<PokemonTeam[]>([])
   const [loading, setLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
 
@@ -13,7 +19,9 @@ const Home = () => {
     setLoading(true)
     fetchTeams(currentPage)
       .then(res => res.data)
-      .then(newTeams => setTeams(prevTeams => [...prevTeams, ...newTeams]))
+      .then(newTeams =>
+        setTeams(prevTeams => [...(prevTeams as PokemonTeam[]), ...newTeams])
+      )
       .catch(err => console.log(err))
       .finally(() => setLoading(false))
   }, [currentPage])
@@ -26,9 +34,10 @@ const Home = () => {
       }
     )
 
-    intersectionObserverTeams.observe(
-      document.getElementById('team-list-sentinel') as Element
-    )
+    const TeamListSentinel = document.getElementById('team-list-sentinel')
+
+    intersectionObserverTeams.observe(TeamListSentinel as Element)
+
     return () => intersectionObserverTeams.disconnect()
   }, [])
 
@@ -41,12 +50,10 @@ const Home = () => {
           key={index}
         />
       ))}
-      {teams && (
-        <span
-          style={{ paddingTop: '.5rem', display: 'block' }}
-          id="team-list-sentinel"
-        ></span>
-      )}
+      <span
+        style={{ paddingTop: '.5rem', display: 'block' }}
+        id="team-list-sentinel"
+      ></span>
       {loading && (
         <Loading
           size="3rem"

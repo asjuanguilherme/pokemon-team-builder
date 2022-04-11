@@ -23,8 +23,8 @@ const PokemonList = () => {
       <S.Title>Choose 6 Pokémons:</S.Title>
       <S.ScrollContainer>
         <S.List>
-          {items?.map(pokemon => (
-            <PokemonOption charUrl={pokemon.url} key={pokemon.name} />
+          {items?.map((pokemon, index) => (
+            <PokemonOption charUrl={pokemon.url} key={index} />
           ))}
         </S.List>
         {loading && (

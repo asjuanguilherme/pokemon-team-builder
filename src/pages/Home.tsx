@@ -1,5 +1,4 @@
 import Layout from '../components/Layout'
-import Loading from '../components/Loading'
 import PokemonList from '../components/PokemonList'
 import TeamBuilder from '../components/TeamBuilder'
 
