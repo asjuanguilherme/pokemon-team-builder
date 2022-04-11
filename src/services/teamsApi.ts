@@ -3,7 +3,7 @@ import qs from 'qs'
 import { PokemonTeamData } from '../types/pokemonTeam'
 
 export const teamsApi = axios.create({
-  baseURL: 'http://143.198.114.153/',
+  baseURL: 'https://pokemon-team-builder-api-juan.herokuapp.com/',
   headers: { 'content-type': 'application/x-www-form-urlencoded' },
 })
 
