@@ -2,8 +2,10 @@ import axios from 'axios'
 import qs from 'qs'
 import { PokemonTeamData } from '../types/pokemonTeam'
 
+const TEAMS_API_URL = process.env.REACT_APP_TEAMS_API_URL
+
 export const teamsApi = axios.create({
-  baseURL: 'https://pokemon-team-builder-api-juan.herokuapp.com/',
+  baseURL: TEAMS_API_URL,
   headers: { 'content-type': 'application/x-www-form-urlencoded' },
 })
 

@@ -1,7 +1,9 @@
 import axios from 'axios'
 
+const POKEMONS_API_URL = process.env.REACT_APP_POKEMONS_API_URL
+
 export const pokeApi = axios.create({
-  baseURL: 'https://pokeapi.co/api/v2/',
+  baseURL: POKEMONS_API_URL,
 })
 
 export const fetchPokemons = async (page: number, perPage: number = 20) => {
