@@ -1,20 +1,19 @@
 import * as S from './styles'
 import PokemonOption from '../PokemonOption'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { PokemonsContext } from '../../contexts/PokemonsContext'
 import Loading from '../Loading'
 
 const PokemonList = () => {
   const { items, loading, setCurrentPage } = useContext(PokemonsContext)
+  const scrollEndRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const intersectionObserver = new IntersectionObserver((entries: any) => {
       if (entries.some((entry: any) => entry.isIntersecting))
         setCurrentPage((prevPage: number) => prevPage + 1)
     })
-    intersectionObserver.observe(
-      document.getElementById('pokemon-list-sentinel') as Element
-    )
+    intersectionObserver.observe(scrollEndRef.current as Element)
     return () => intersectionObserver.disconnect()
   }, [])
 
@@ -27,6 +26,10 @@ const PokemonList = () => {
             <PokemonOption charUrl={pokemon.url} key={index} />
           ))}
         </S.List>
+        <div
+          ref={scrollEndRef}
+          style={{ paddingTop: '0.3rem', width: '100%' }}
+        ></div>
         {loading && (
           <Loading
             message="Discovering Pokémons..."
@@ -34,7 +37,6 @@ const PokemonList = () => {
             style={{ paddingTop: '1.5rem', paddingBottom: '2.5rem' }}
           />
         )}
-        <S.Sentinel id="pokemon-list-sentinel" />
       </S.ScrollContainer>
     </S.Container>
   )

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Layout from '../components/Layout'
 import Loading from '../components/Loading'
 import Team from '../components/Team'
@@ -14,6 +14,7 @@ const Home = () => {
   const [teams, setTeams] = useState<PokemonTeam[]>([])
   const [loading, setLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
+  const scrollEndRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setLoading(true)
@@ -34,9 +35,7 @@ const Home = () => {
       }
     )
 
-    const TeamListSentinel = document.getElementById('team-list-sentinel')
-
-    intersectionObserverTeams.observe(TeamListSentinel as Element)
+    intersectionObserverTeams.observe(scrollEndRef.current as Element)
 
     return () => intersectionObserverTeams.disconnect()
   }, [])
@@ -50,10 +49,10 @@ const Home = () => {
           key={index}
         />
       ))}
-      <span
-        style={{ paddingTop: '.5rem', display: 'block' }}
-        id="team-list-sentinel"
-      ></span>
+      <div
+        ref={scrollEndRef}
+        style={{ paddingTop: '0.3rem', width: '100%' }}
+      ></div>
       {loading && (
         <Loading
           size="3rem"

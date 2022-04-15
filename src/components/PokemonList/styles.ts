@@ -24,8 +24,3 @@ export const List = styled.ul`
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 0.6rem;
 `
-
-export const Sentinel = styled.div`
-  padding-top: 0.3rem;
-  width: 100%;
-`
