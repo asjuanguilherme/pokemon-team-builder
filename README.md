@@ -3,6 +3,8 @@
 ## Introdução
 Este projeto foi desenvolvido durante o processo seletivo para concorrer a uma vaga de desenvolvedor React. Trata-se de um app de construtor pokémons feito em [React](https://reactjs.org/). Cada time é composto por 6 pokémons e um título. O construtor é simples, tendo como principal objetivo construir times de pokemons e possui duas telas, uma com o construtor de times e listagem das opções de pokemons selecionáveis e a outra com a listagem dos times criados.
 
+> Esse repositório se refere a parte do Frontend. Link para o [repositório do backend aqui](https://github.com/asjuanguilherme/pokemon-team-builder-api).
+
 ## Tecnologias Utilizadas
 * [React.js](https://reactjs.org/)
 * [Axios](https://axios-http.com/)
