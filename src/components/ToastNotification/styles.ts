@@ -1,5 +1,12 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { light } from '../../styles/themes'
+
+const fadeIn = keyframes`
+    from {
+        opacity: .8;
+        transform: scale(.9);
+    }
+`
 
 export const Container = styled.div`
   user-select: none;
@@ -14,6 +21,7 @@ export const Container = styled.div`
   border-radius: 1rem;
   overflow: hidden;
   box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.15);
+  animation: ${fadeIn} 0.15s ease-in-out;
 `
 
 export const Icon = styled.div<{ type: string }>`
