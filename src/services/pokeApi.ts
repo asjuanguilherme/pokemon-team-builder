@@ -12,3 +12,7 @@ export const fetchPokemons = async (page: number, perPage: number = 20) => {
     .then(response => response.data)
     .then(response => response.results)
 }
+
+export const fetchSinglePokemon = (nameOrUniqueId: string | number) => {
+  return pokeApi.get(`pokemon/${nameOrUniqueId}`)
+}
