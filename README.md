@@ -18,3 +18,31 @@ Este projeto foi desenvolvido durante o processo seletivo para concorrer a uma v
 
 ## Dados do App
 O App foi desenvolvido usando React, os dados dos pokémons foram conseguidos graças a comunicação com a API [Pokéapi](https://pokeapi.co/), já os dados dos times criados, foram armazenados num backend desenvolvido em Node.js utilizando Express.js.
+
+## Como Iniciar o Projeto Localmente (No seu computador)
+1. Certifique-se de ter o Node.js instalado numa versão >= 16
+```sh
+node -v
+```
+> Caso possua uma versão diferente do node, sugiro instalar o [NVM](https://github.com/nvm-sh/nvm) para gerenciar sua versão do node sempre que precisar mudar.
+
+2. Instale as dependencias
+```sh
+npm install ou yarn
+```
+3. Edite as variáveis de ambiente em .env.example e renomeie para .env
+```sh
+REACT_APP_TEAMS_API_URL='https://url-base-da-api-do-backend.com/'
+REACT_APP_POKEMONS_API_URL='https://url-base-da-pokeapi.com/'
+```
+> [Backend de Teams](https://github.com/asjuanguilherme/pokemon-team-builder-api)
+> [Pokeapi](https://pokeapi.co/)
+
+4. Inicie o projeto
+```sh
+npm run start ou yarn start
+```
+5. Build de Produção
+```sh
+npm run build ou yarn build
+```
