@@ -1,6 +1,5 @@
 import * as S from './styles'
 import { useContext, useEffect, useState } from 'react'
-import { pokeApi } from '../../services/pokeApi'
 import { monsterTypesColors } from '../../styles/monsterTypesColors'
 import Background from './Background'
 import { Pokemon } from '../../types/Pokemon'
@@ -15,26 +14,16 @@ type Props = {
 }
 
 const TeamSlot = (props: Props) => {
-  const { charsSlots } = useContext(PokemonsContext)
+  const { charsSlots, items } = useContext(PokemonsContext)
   const [pokemonData, setPokemonData] = useState<Pokemon>()
 
   useEffect(() => {
-    if (props.id !== null)
-      pokeApi
-        .get(`/pokemon/${props.id}`)
-        .then(response => response.data)
-        .then((pokemon: any) =>
-          setPokemonData({
-            id: pokemon.id,
-            name: pokemon.name,
-            image: pokemon.sprites.other.dream_world.front_default,
-            types: pokemon.types.map((typeObject: any) => typeObject.type.name),
-          })
-        )
-    else {
-      setPokemonData({} as Pokemon)
-    }
-  }, [props.id, charsSlots])
+    const selectedPokemon = items.filter(
+      pokemon => pokemon.id === props.id
+    )[0] as Pokemon
+
+    setPokemonData({ ...selectedPokemon })
+  }, [charsSlots, props.id, items])
 
   return (
     <div>
