@@ -9,7 +9,7 @@ import { sendNewTeam } from '../../services/teamsApi'
 import { CharSlot } from '../../types/CharSlot'
 
 const TeamBuilder = () => {
-  const { charsSlots, setCharsSlots, teamName, setTeamName } =
+  const { charsSlots, setCharsSlots, teamName, setTeamName, setNotification } =
     useContext(PokemonsContext)
   const [selectedSlot, setSelectedSlot] = useState<CharSlot>(null)
 
@@ -43,11 +43,26 @@ const TeamBuilder = () => {
     }
 
     sendNewTeam(newTeam)
-      .then(() => {
-        setAllSlotsNull()
-        setTeamName('My Team')
-      })
-      .catch(err => console.log(err))
+      .then(res => console.log(res))
+      .then(
+        () => {
+          setAllSlotsNull()
+          setTeamName('My Team')
+          setNotification({
+            title: 'Team created',
+            message:
+              'Your new team has been created successfully! You can find it in the teams tab.',
+            type: 'success',
+          })
+        },
+        setNotification({
+          title: 'Team not created',
+          type: 'error',
+          message:
+            'There was an error while creating the time. Please try again later.',
+        })
+      )
+      .catch(err => console.error(err))
   }
 
   const handleChange = (e: any) => {
