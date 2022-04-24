@@ -14,7 +14,7 @@ Este projeto foi desenvolvido durante o processo seletivo para concorrer a uma v
 * [Husky](https://typicode.github.io/husky/#/)
 
 ## Imagens
-![Construtor e Listagem de Pokémons](https://user-images.githubusercontent.com/40828086/164949213-00876a75-4df6-4edd-872a-11bf32b13630.png) ![Listagem de Times](https://user-images.githubusercontent.com/40828086/164949210-abe6b8ea-3792-4276-ab75-4c792c2715ac.png) ![Fluxo de Interação](https://user-images.githubusercontent.com/40828086/164949211-468dc2f9-e006-4732-b7e6-7b90056de3d3.gif)
+<img src="https://user-images.githubusercontent.com/40828086/164949213-00876a75-4df6-4edd-872a-11bf32b13630.png" alt="Construtor e Listagem de Pokémons" height="480px"> <img src="https://user-images.githubusercontent.com/40828086/164949210-abe6b8ea-3792-4276-ab75-4c792c2715ac.png" alt="Listagem de Times" height="480px"> <img src="https://user-images.githubusercontent.com/40828086/164949211-468dc2f9-e006-4732-b7e6-7b90056de3d3.gif" alt="Fluxo de Interação" height="480px">
 
 ## Dados do App
 O App foi desenvolvido usando React, os dados dos pokémons foram conseguidos graças a comunicação com a API [Pokéapi](https://pokeapi.co/), já os dados dos times criados, foram armazenados num backend desenvolvido em Node.js utilizando Express.js.
