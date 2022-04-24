@@ -1,9 +1,8 @@
 import * as S from './styles'
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { monsterTypesColors } from '../../styles/monsterTypesColors'
 import { PokemonsContext } from '../../contexts/PokemonsContext'
 import { Pokemon } from '../../types/Pokemon'
-import { pokeApi } from '../../services/pokeApi'
 
 const PokemonOption = (props: Pokemon) => {
   const { charsSlots, setCharsSlots } = useContext(PokemonsContext)
