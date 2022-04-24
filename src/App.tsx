@@ -1,6 +1,6 @@
 import GlobalStyle from './styles/globalStyle'
 import PokemonsProvider from './contexts/PokemonsContext'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Teams from './pages/Teams'
 import Home from './pages/Home'
 

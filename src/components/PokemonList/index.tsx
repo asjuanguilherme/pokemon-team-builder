@@ -15,6 +15,8 @@ const PokemonList = () => {
     })
     intersectionObserver.observe(scrollEndRef.current as Element)
     return () => intersectionObserver.disconnect()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
