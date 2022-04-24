@@ -39,17 +39,6 @@ const PokemonsProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     setLoading(true)
     fetchPokemons(currentPage)
-      .then(pokemons => pokemons.map((a: any) => fetchSinglePokemon(a.name)))
-      .then(promises => Promise.all(promises))
-      .then(response => response.map(response => response.data))
-      .then(pokemonsData =>
-        pokemonsData.map(pokemon => ({
-          id: pokemon.id,
-          name: pokemon.name,
-          image: pokemon.sprites.other.dream_world.front_default,
-          types: pokemon.types.map((typeObject: any) => typeObject.type.name),
-        }))
-      )
       .then(pokemonsList =>
         setItems((prevPokemonList: any) => [
           ...prevPokemonList,
