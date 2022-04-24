@@ -3,13 +3,14 @@ import { useContext, useEffect, useState } from 'react'
 import { pokeApi } from '../../services/pokeApi'
 import { monsterTypesColors } from '../../styles/monsterTypesColors'
 import Background from './Background'
-import { Pokemon } from '../../types/pokemon'
+import { Pokemon } from '../../types/Pokemon'
 import { PokemonsContext } from '../../contexts/PokemonsContext'
+import { CharSlot } from '../../types/CharSlot'
 
 type Props = {
-  id: number | null
+  id: CharSlot
   onClick?: () => void
-  selectedIndex: null | number
+  selectedIndex: CharSlot
   index: number
 }
 

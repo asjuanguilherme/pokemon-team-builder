@@ -4,15 +4,14 @@ import * as S from './styles'
 import TeamSlot from '../TeamSlot'
 import Button from '../IconButton'
 import { MdCheck, MdDelete } from 'react-icons/md'
-import { PokemonTeamData } from '../../types/pokemonTeam'
+import { PokemonTeamData } from '../../types/PokemonTeam'
 import { sendNewTeam } from '../../services/teamsApi'
-
-type SlotIndex = number | null
+import { CharSlot } from '../../types/CharSlot'
 
 const TeamBuilder = () => {
   const { charsSlots, setCharsSlots, teamName, setTeamName } =
     useContext(PokemonsContext)
-  const [selectedSlot, setSelectedSlot] = useState<SlotIndex>(null)
+  const [selectedSlot, setSelectedSlot] = useState<CharSlot>(null)
 
   const selectSlot = (index: number) => {
     if (charsSlots[index] !== null) setSelectedSlot(index)

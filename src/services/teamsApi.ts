@@ -1,6 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
-import { PokemonTeamData } from '../types/pokemonTeam'
+import { PokemonTeamData } from '../types/PokemonTeam'
 
 const TEAMS_API_URL = process.env.REACT_APP_TEAMS_API_URL
 

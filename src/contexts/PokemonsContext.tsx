@@ -1,5 +1,6 @@
 import { useState, useEffect, createContext, ReactNode } from 'react'
 import { fetchPokemons } from '../services/pokeApi'
+import { CharSlot } from '../types/CharSlot'
 
 type PokemonsContextProps = { children: ReactNode }
 
@@ -11,7 +12,7 @@ type PokemonFetchObject = {
 type PokemonsContextType = {
   items: PokemonFetchObject[]
   setItems: Function
-  charsSlots: (number | null)[]
+  charsSlots: CharSlot[]
   setCharsSlots: Function
   teamName: string
   setTeamName: Function
@@ -29,7 +30,7 @@ const PokemonsProvider = ({ children }: PokemonsContextProps) => {
     items: [] as PokemonFetchObject[],
     currentPage: 1,
     loading: true,
-    charsSlots: [null, null, null, null, null, null] as (null | number)[],
+    charsSlots: [null, null, null, null, null, null],
     teamName: 'My Team',
   }
 

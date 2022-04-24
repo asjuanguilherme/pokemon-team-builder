@@ -2,7 +2,7 @@ import * as S from './styles'
 import { useContext, useEffect, useState } from 'react'
 import { monsterTypesColors } from '../../styles/monsterTypesColors'
 import { PokemonsContext } from '../../contexts/PokemonsContext'
-import { Pokemon } from '../../types/pokemon'
+import { Pokemon } from '../../types/Pokemon'
 import { pokeApi } from '../../services/pokeApi'
 
 type Props = {
