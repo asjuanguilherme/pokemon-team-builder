@@ -2,6 +2,7 @@ import { useState, useEffect, createContext, ReactNode } from 'react'
 import { fetchPokemons, fetchSinglePokemon } from '../services/pokeApi'
 import { CharSlot } from '../types/CharSlot'
 import { Pokemon } from '../types/Pokemon'
+import { ToastNotificationData } from '../types/ToastNotification'
 
 type PokemonsContextType = {
   items: Pokemon[]
@@ -13,6 +14,8 @@ type PokemonsContextType = {
   loading: boolean
   currentPage: number
   setCurrentPage: Function
+  notification?: ToastNotificationData
+  setNotification: Function
 }
 
 export const PokemonsContext = createContext<PokemonsContextType>(
@@ -35,6 +38,9 @@ const PokemonsProvider = ({ children }: { children: ReactNode }) => {
   //TeamBuildingStates
   const [charsSlots, setCharsSlots] = useState(defaultValue.charsSlots)
   const [teamName, setTeamName] = useState(defaultValue.teamName)
+
+  //ToastNotification
+  const [notification, setNotification] = useState<ToastNotificationData>()
 
   useEffect(() => {
     setLoading(true)
@@ -60,6 +66,8 @@ const PokemonsProvider = ({ children }: { children: ReactNode }) => {
         loading,
         currentPage,
         setCurrentPage,
+        notification,
+        setNotification,
       }}
     >
       {children}

@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { light } from '../../styles/themes'
 
 export const Container = styled.div`
+  user-select: none;
   position: fixed;
   top: 1.3rem;
   right: 1.3rem;

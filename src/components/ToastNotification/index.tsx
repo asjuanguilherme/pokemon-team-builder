@@ -1,11 +1,6 @@
 import * as S from './styles'
 import { MdCheckCircle, MdError, MdWarning, MdInfo } from 'react-icons/md'
-
-type Props = {
-  type: 'success' | 'error' | 'warning' | 'info'
-  title: string
-  message: string
-}
+import { ToastNotificationData } from '../../types/ToastNotification'
 
 const Icons = {
   success: <MdCheckCircle />,
@@ -14,13 +9,15 @@ const Icons = {
   info: <MdInfo />,
 }
 
-const ToastNotification = ({ type = 'info', title, message }: Props) => {
+const ToastNotification = (props: ToastNotificationData) => {
   return (
     <S.Container>
-      <S.Icon type={type}>{Icons[type]}</S.Icon>
+      <S.Icon type={props.type === 'error' ? 'danger' : props.type}>
+        {Icons[props.type]}
+      </S.Icon>
       <S.Content>
-        <S.Title>{title}</S.Title>
-        <S.Message>{message}</S.Message>
+        <S.Title>{props.title}</S.Title>
+        <S.Message>{props.message}</S.Message>
       </S.Content>
     </S.Container>
   )
