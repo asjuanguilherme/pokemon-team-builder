@@ -25,7 +25,7 @@ const PokemonList = () => {
       <S.ScrollContainer>
         <S.List>
           {items?.map((pokemon, index) => (
-            <PokemonOption charUrl={pokemon.url} key={index} />
+            <PokemonOption {...pokemon} key={index} />
           ))}
         </S.List>
         <div

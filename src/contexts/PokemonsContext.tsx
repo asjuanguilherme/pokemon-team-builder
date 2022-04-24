@@ -1,16 +1,10 @@
 import { useState, useEffect, createContext, ReactNode } from 'react'
-import { fetchPokemons } from '../services/pokeApi'
+import { fetchPokemons, fetchSinglePokemon } from '../services/pokeApi'
 import { CharSlot } from '../types/CharSlot'
-
-type PokemonsContextProps = { children: ReactNode }
-
-type PokemonFetchObject = {
-  url: string
-  name: string
-}
+import { Pokemon } from '../types/Pokemon'
 
 type PokemonsContextType = {
-  items: PokemonFetchObject[]
+  items: Pokemon[]
   setItems: Function
   charsSlots: CharSlot[]
   setCharsSlots: Function
@@ -25,9 +19,9 @@ export const PokemonsContext = createContext<PokemonsContextType>(
   {} as PokemonsContextType
 )
 
-const PokemonsProvider = ({ children }: PokemonsContextProps) => {
+const PokemonsProvider = ({ children }: { children: ReactNode }) => {
   const defaultValue = {
-    items: [] as PokemonFetchObject[],
+    items: [] as Pokemon[],
     currentPage: 1,
     loading: true,
     charsSlots: [null, null, null, null, null, null],
@@ -45,10 +39,23 @@ const PokemonsProvider = ({ children }: PokemonsContextProps) => {
   useEffect(() => {
     setLoading(true)
     fetchPokemons(currentPage)
-      .then(pokemons =>
-        pokemons.map((a: any) => ({ name: a.name, url: a.url }))
+      .then(pokemons => pokemons.map((a: any) => fetchSinglePokemon(a.name)))
+      .then(promises => Promise.all(promises))
+      .then(response => response.map(response => response.data))
+      .then(pokemonsData =>
+        pokemonsData.map(pokemon => ({
+          id: pokemon.id,
+          name: pokemon.name,
+          image: pokemon.sprites.other.dream_world.front_default,
+          types: pokemon.types.map((typeObject: any) => typeObject.type.name),
+        }))
       )
-      .then(newItems => setItems(prevItems => [...prevItems, ...newItems]))
+      .then(pokemonsList =>
+        setItems((prevPokemonList: any) => [
+          ...prevPokemonList,
+          ...pokemonsList,
+        ])
+      )
       .finally(() => setLoading(false))
   }, [currentPage])
 
